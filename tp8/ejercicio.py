@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+## ATENCION: Debe colocar la dirección en la que ha sido publicada la aplicación en la siguiente línea
+# url = https://tp8-59251.streamlit.app/
+
 # Función para crear el gráfico de evolución de ventas
 def crear_grafico_ventas(datos_producto, producto):
     ventas_por_producto = datos_producto.groupby(['Año', 'Mes'])['Unidades_vendidas'].sum().reset_index()
@@ -17,7 +20,7 @@ def crear_grafico_ventas(datos_producto, producto):
     p = np.poly1d(z)
     ax.plot(x, p(x), linestyle='--', color='red', label='Tendencia')
     
-    ax.set_title('Evolución de Ventas Mensual')
+    ax.set_title(f'Evolución de Ventas Mensual - {producto}')
     ax.set_xlabel('Año-Mes')
     ax.set_xticks(range(len(ventas_por_producto)))
     
@@ -35,9 +38,9 @@ def crear_grafico_ventas(datos_producto, producto):
 # Función para mostrar información del alumno
 def mostrar_informacion_alumno():
     st.markdown("""
-    **Legajo:** 55.555  
-    **Nombre:** Juan Pérez  
-    **Comisión:** C1  
+    **Legajo:** 59251  
+    **Nombre:** Mamani Daniel Fernando  
+    **Comisión:** C7  
     """)
 
 # Configuración del sidebar para cargar archivos
@@ -58,6 +61,9 @@ if archivo_cargado is not None:
     
     # Análisis por producto
     for producto in datos['Producto'].unique():
+        # Mostrar el nombre del producto como subcabecera
+        st.subheader(f"Producto: {producto}")
+        
         datos_producto = datos[datos['Producto'] == producto]
         
         # Calcular métricas
